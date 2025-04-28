@@ -18,7 +18,7 @@ st.set_page_config(
 # --- Load Data and Model ---
 @st.cache_data
 def load_data():
-    df = pd.read_csv("/home/ubuntu/upload/Housing.csv")
+    df = pd.read_csv("Housing.csv")
     # Convert binary categorical features (yes/no) to numeric (1/0)
     binary_cols = ["mainroad", "guestroom", "basement", "hotwaterheating", "airconditioning", "prefarea"]
     for col in binary_cols:
@@ -31,8 +31,8 @@ def load_data():
 
 @st.cache_resource
 def load_model_and_params():
-    model_path = "/home/ubuntu/housing_portfolio/public/data/best_model.joblib"
-    params_path = "/home/ubuntu/housing_portfolio/public/data/model_params.json"
+    model_path = "best_model.joblib"
+    params_path = "model_params.json"
     
     if not os.path.exists(model_path) or not os.path.exists(params_path):
         st.error("Model or parameters file not found. Please ensure the training script has run successfully.")
@@ -225,7 +225,3 @@ elif page == "Price Predictor":
         fig_importance.update_layout(yaxis_title="Feature", xaxis_title="Absolute Coefficient Value")
         st.plotly_chart(fig_importance, use_container_width=True)
         st.caption("Shows the magnitude of each feature's coefficient in the linear model.")
-
-# --- Footer ---
-st.markdown("--- ")
-st.markdown("Created by Manus AI based on the Housing Dataset.")
